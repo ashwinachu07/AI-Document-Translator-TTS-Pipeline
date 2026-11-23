@@ -19,3 +19,11 @@ transformers>=4.30.0
 gtts>=2.2.3
 soundfile>=0.12.0
 torch>=2.0.0
+coqui-tts>=0.24.0
+parler_tts>=0.2.0
+
+# Optional preprocessing and model support
+indic-nlp-library>=0.92
+sentencepiece>=0.2.0
+safetensors>=0.4.0
+accelerate>=0.30.0

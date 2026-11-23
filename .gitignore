@@ -12,6 +12,9 @@ Docs/
 *.tar.gz
 *.rar
 
+# Standalone draft utility
+t-t-v.py
+
 # Pre-trained ML models (GitHub 100MB limit: Argos model is ~102MB)
 models/
 *.argosmodel
@@ -22,6 +25,9 @@ libraries/
 # Generated output audio files from testing
 **/output_files/*.mp3
 **/output_files/*.wav
+*.env
+*.log
+*.tmp
 
 # Python cache & build artifacts
 __pycache__/

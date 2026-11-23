@@ -1,6 +1,6 @@
 # AI-Powered Text Extraction, Translation & Speech Synthesis Pipeline
 
-An end-to-end multimodal pipeline designed to extract text from scanned documents and images using Optical Character Recognition (OCR), translate the extracted content across multiple languages using neural machine translation (NMT) engines, and synthesize natural spoken audio in the target language.
+This project is designed to scan PDF files and images, extract text using Optical Character Recognition (OCR), translate the extracted text into a specified language, and convert the translated text into speech.
 
 ---
 
@@ -27,7 +27,7 @@ An end-to-end multimodal pipeline designed to extract text from scanned document
 ## 📁 Repository Structure
 
 ```text
-├── pdf-image-translator/
+├── AI-Document-Translator-TTS-Pipeline/
 │   ├── src/
 │   │   ├── main.py                     # Application entry point
 │   │   ├── resources/
@@ -39,8 +39,7 @@ An end-to-end multimodal pipeline designed to extract text from scanned document
 │   │       ├── language_codes.py       # Supported language code references
 │   │       ├── argos_install.py        # Automated Argos model downloader & installer
 │   │       └── ...
-│   ├── requirements.txt                # Python dependencies
-│   └── README.md                       # Module documentation
+│   └── requirements.txt                # Python dependencies
 ├── t-t-v.py                            # Standalone quick text-to-voice utility
 ├── .gitignore                          # Git exclusion rules
 └── README.md                           # Main repository documentation
@@ -52,15 +51,17 @@ An end-to-end multimodal pipeline designed to extract text from scanned document
 
 ### 1. Prerequisites
 
-In addition to Python 3.9+, this project requires two external system tools:
+Python 3.9 or later is recommended. This project requires two external system tools:
 
 1. **Tesseract OCR**:
-   - **Windows**: Download the installer from [UB-Mannheim/tesseract](https://github.com/UB-Mannheim/tesseract/wiki) and add the install directory to your system `PATH`.
+   - **Windows**: Install Tesseract OCR, commonly to `C:\Program Files\Tesseract-OCR`, and add that directory to `PATH`. Restart the terminal or VS Code after updating `PATH`.
+   - Verify it with `tesseract --version`.
    - **Linux / Ubuntu**: `sudo apt install tesseract-ocr`
    - **macOS**: `brew install tesseract`
 
 2. **Poppler** (required by `pdf2image` for rendering PDFs to images):
-   - **Windows**: Download the latest release from [poppler-windows](https://github.com/oschwartz10612/poppler-windows/releases) and add its `bin` folder to your system `PATH`.
+   - **Windows**: Download and extract Poppler for Windows, then add the extracted `poppler-\...\Library\bin` directory to `PATH`.
+   - Verify it with `pdfinfo -v`.
    - **Linux / Ubuntu**: `sudo apt install poppler-utils`
    - **macOS**: `brew install poppler`
 
@@ -85,7 +86,7 @@ In addition to Python 3.9+, this project requires two external system tools:
 
 3. **Install Python dependencies**:
    ```bash
-   pip install -r pdf-image-translator/requirements.txt
+   pip install -r AI-Document-Translator-TTS-Pipeline/requirements.txt
    ```
 
 ---
@@ -95,8 +96,17 @@ In addition to Python 3.9+, this project requires two external system tools:
 If you plan to use **Argos Translate** offline:
 Run the built-in installer script to download and register pre-trained packages:
 ```bash
-python pdf-image-translator/src/utils/argos_install.py
+python AI-Document-Translator-TTS-Pipeline/src/utils/argos_install.py --from en --to hi
 ```
+
+Replace `hi` with another Argos-supported target code, such as `ml`, `ta`, `te`, or `es`, when installing a different language pair:
+```bash
+python AI-Document-Translator-TTS-Pipeline/src/utils/argos_install.py --from en --to ml
+```
+
+The installer updates the Argos package index and downloads the requested package. Local `.argosmodel` files can also be installed manually through Argos, but they are not required and are ignored by Git.
+
+For **MarianMT**, language-pair models are downloaded automatically from Hugging Face on first use. For **Indic Parler TTS**, `ai4bharat/indic-parler-tts` is downloaded on first use. Internet access, memory, and disk space are required for these first-time downloads. A GPU is recommended for neural TTS and MarianMT, but CPU operation is also possible.
 
 ---
 
@@ -105,7 +115,7 @@ python pdf-image-translator/src/utils/argos_install.py
 To run the full interactive pipeline:
 
 ```bash
-cd pdf-image-translator/src
+cd AI-Document-Translator-TTS-Pipeline/src
 python main.py
 ```
 
@@ -119,6 +129,30 @@ The translated audio file will be saved in `output_files/`.
 
 ---
 
-## 📄 License
+## 📦 Dependencies
 
-This project is licensed under the MIT License.
+- OCR: `pytesseract`, `pdf2image`, `pdfplumber`, `opencv-python`, and `Pillow`
+- Translation: `googletrans`, `argostranslate`, and `transformers`
+- Speech: `gtts`, `coqui-tts`, `parler_tts`, `torch`, and `soundfile`
+- Model support: `indic-nlp-library`, `sentencepiece`, `safetensors`, and `accelerate`
+
+---
+
+## ⚠️ Known Limitations
+
+- OCR quality depends on image resolution and document layout.
+- Google Translate and gTTS require internet access.
+- MarianMT and Indic Parler TTS download large models when first used.
+- Neural TTS and MarianMT may be slow without a supported GPU.
+- Argos, MarianMT, and Coqui support only their available languages or language pairs.
+
+---
+
+## Contributing
+
+Contributions, bug reports, and feature suggestions are welcome. Please open an issue or submit a pull request with a clear description of the proposed change.
+
+---
+
+Copyright (c) 2026 Ashwin
+
