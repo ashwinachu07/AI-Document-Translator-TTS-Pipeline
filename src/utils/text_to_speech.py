@@ -1,9 +1,6 @@
 from gtts import gTTS
-from transformers import AutoTokenizer
-import torch
 import os
 from datetime import datetime
-import soundfile as sf
 
 def text_to_audio_with_indic_parler(prompt, description, output_file):
     """
@@ -16,6 +13,9 @@ def text_to_audio_with_indic_parler(prompt, description, output_file):
     """
     try:
         from parler_tts import ParlerTTSForConditionalGeneration
+        from transformers import AutoTokenizer
+        import torch
+        import soundfile as sf
 
         # Set device (use GPU if available)
         device = "cuda:0" if torch.cuda.is_available() else "cpu"

@@ -1,7 +1,3 @@
-from googletrans import Translator
-from argostranslate import package, translate
-from transformers import MarianMTModel, MarianTokenizer
-
 def translate_text(text, dest_language, engine="google", source_language="en"):
     """
     Translate text to the target language.
@@ -17,8 +13,10 @@ def translate_text(text, dest_language, engine="google", source_language="en"):
     """
     if engine == "google":
         # Use Google Translate (online)
-        translator = Translator()
         try:
+            from googletrans import Translator
+
+            translator = Translator()
             translation = translator.translate(text, src=source_language, dest=dest_language)
             return translation.text
         except Exception as e:
@@ -27,6 +25,8 @@ def translate_text(text, dest_language, engine="google", source_language="en"):
     elif engine == "argos":
         # Use Argos Translate (offline)
         try:
+            from argostranslate import translate
+
             installed_languages = translate.get_installed_languages()
             from_lang = next(lang for lang in installed_languages if lang.code == source_language)  # Source language
             to_lang = next(lang for lang in installed_languages if lang.code == dest_language)  # Target language
@@ -38,6 +38,8 @@ def translate_text(text, dest_language, engine="google", source_language="en"):
     elif engine == "marian":
         # Use MarianMT (Hugging Face) for translation
         try:
+            from transformers import MarianMTModel, MarianTokenizer
+
             model_name = f"Helsinki-NLP/opus-mt-{source_language}-{dest_language}"
             tokenizer = MarianTokenizer.from_pretrained(model_name)
             model = MarianMTModel.from_pretrained(model_name)
