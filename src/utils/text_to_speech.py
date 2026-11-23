@@ -1,12 +1,9 @@
 from gtts import gTTS
-from gtts.lang import tts_langs
-from TTS.api import TTS
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+from transformers import AutoTokenizer
 import torch
 import os
 from datetime import datetime
 import soundfile as sf
-from parler_tts import ParlerTTSForConditionalGeneration
 
 def text_to_audio_with_indic_parler(prompt, description, output_file):
     """
@@ -18,6 +15,8 @@ def text_to_audio_with_indic_parler(prompt, description, output_file):
     - output_file: The path to save the audio file.
     """
     try:
+        from parler_tts import ParlerTTSForConditionalGeneration
+
         # Set device (use GPU if available)
         device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
@@ -81,6 +80,8 @@ def text_to_audio(text, language, output_file, engine="gtts", description=None):
             tts_file.save(output_file)
         elif engine == "coqui":
             print("Using Coqui TTS for natural-sounding speech")
+            from TTS.api import TTS
+
             tts = TTS(model_name="tts_models/en/ljspeech/tacotron2-DDC")
             print(f"Using Coqui TTS model: {tts.model_name}")
             tts.tts_to_file(text=text, file_path=output_file)

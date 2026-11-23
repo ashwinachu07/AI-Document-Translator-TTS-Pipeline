@@ -2,6 +2,8 @@
 
 This project is designed to scan PDF files and images, extract text using Optical Character Recognition (OCR), translate the extracted text into a specified language, and convert the translated text into speech.
 
+![Architecture](assets/architecture.png)
+
 ---
 
 ## 🌟 Key Features
@@ -73,8 +75,8 @@ Python 3.9 or later is recommended. This project requires two external system to
 
 1. **Clone the repository**:
    ```bash
-   git clone <YOUR_REPOSITORY_URL>
-   cd <REPOSITORY_NAME>
+   git clone https://github.com/ashwinachu07/AI-Document-Translator-TTS-Pipeline.git
+   cd AI-Document-Translator-TTS-Pipeline
    ```
 
 2. **Create and activate a virtual environment** (recommended):

@@ -25,6 +25,7 @@ libraries/
 # Generated output audio files from testing
 **/output_files/*.mp3
 **/output_files/*.wav
+indic_tts_out.wav
 *.env
 *.log
 *.tmp
