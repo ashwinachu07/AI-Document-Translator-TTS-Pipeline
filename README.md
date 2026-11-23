@@ -27,20 +27,22 @@ This project is designed to scan PDF files and images, extract text using Optica
 ## 📁 Repository Structure
 
 ```text
-├── AI-Document-Translator-TTS-Pipeline/
-│   ├── src/
-│   │   ├── main.py                     # Application entry point
-│   │   ├── resources/
-│   │   │   └── sample.pdf              # Sample document for verification
-│   │   └── utils/
-│   │       ├── ocr.py                  # OCR extraction & preprocessing routines
-│   │       ├── translator.py           # Multi-engine translation logic
-│   │       ├── text_to_speech.py       # Speech synthesis & fallback engine
-│   │       ├── language_codes.py       # Supported language code references
-│   │       ├── argos_install.py        # Automated Argos model downloader & installer
-│   │       └── ...
-│   └── requirements.txt                # Python dependencies
-├── t-t-v.py                            # Standalone quick text-to-voice utility
+├── src/
+│   ├── main.py                         # Application entry point
+│   ├── resources/
+│   │   └── sample.pdf                  # Sample document for verification
+│   └── utils/
+│       ├── ocr.py                      # OCR extraction & preprocessing routines
+│       ├── translator.py               # Multi-engine translation logic
+│       ├── text_to_speech.py           # Speech synthesis & fallback engine
+│       ├── language_codes.py           # Supported language code references
+│       ├── argos_install.py            # Automated Argos model downloader & installer
+│       └── ...
+├── tests/
+│   ├── argos_test.py                   # Argos translation smoke test
+│   ├── marianmt_models.py              # MarianMT model download test
+│   └── parler_test.py                  # Indic Parler TTS smoke test
+├── requirements.txt                    # Python dependencies
 ├── .gitignore                          # Git exclusion rules
 └── README.md                           # Main repository documentation
 ```
@@ -86,7 +88,7 @@ Python 3.9 or later is recommended. This project requires two external system to
 
 3. **Install Python dependencies**:
    ```bash
-   pip install -r AI-Document-Translator-TTS-Pipeline/requirements.txt
+   pip install -r requirements.txt
    ```
 
 ---
@@ -96,12 +98,12 @@ Python 3.9 or later is recommended. This project requires two external system to
 If you plan to use **Argos Translate** offline:
 Run the built-in installer script to download and register pre-trained packages:
 ```bash
-python AI-Document-Translator-TTS-Pipeline/src/utils/argos_install.py --from en --to hi
+python src/utils/argos_install.py --from en --to hi
 ```
 
 Replace `hi` with another Argos-supported target code, such as `ml`, `ta`, `te`, or `es`, when installing a different language pair:
 ```bash
-python AI-Document-Translator-TTS-Pipeline/src/utils/argos_install.py --from en --to ml
+python src/utils/argos_install.py --from en --to ml
 ```
 
 The installer updates the Argos package index and downloads the requested package. Local `.argosmodel` files can also be installed manually through Argos, but they are not required and are ignored by Git.
@@ -115,8 +117,7 @@ For **MarianMT**, language-pair models are downloaded automatically from Hugging
 To run the full interactive pipeline:
 
 ```bash
-cd AI-Document-Translator-TTS-Pipeline/src
-python main.py
+python src/main.py
 ```
 
 You will be prompted to:
