@@ -1,0 +1,44 @@
+# ==========================================
+# Git Ignore - Mini Project
+# ==========================================
+
+# College Documents & Presentations (per user preference)
+Docs/
+*.docx
+*.pptx
+
+# Archives and compressed files
+*.zip
+*.tar.gz
+*.rar
+
+# Pre-trained ML models (GitHub 100MB limit: Argos model is ~102MB)
+models/
+*.argosmodel
+
+# External binary dependencies (Poppler Windows release binaries ~47MB)
+libraries/
+
+# Generated output audio files from testing
+**/output_files/*.mp3
+**/output_files/*.wav
+
+# Python cache & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.env
+venv/
+env/
+ENV/
+.venv/
+
+# IDE and OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
